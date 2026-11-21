@@ -36,7 +36,6 @@ function carregarProdutos() {
       }
     }
   } catch (erro) {
-    /* Ignora falha de leitura e usa os produtos iniciais */
   }
 
   return [...PRODUTOS_INICIAIS];
@@ -46,7 +45,6 @@ function salvarProdutos() {
   try {
     localStorage.setItem(CHAVE_ARMAZENAMENTO, JSON.stringify(produtos));
   } catch (erro) {
-    /* Ignora falha caso o navegador bloqueie armazenamento local */
   }
 }
 
