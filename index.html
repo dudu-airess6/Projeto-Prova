@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuperMart — Sistema de Gerenciamento de Estoque</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="cabecalho-marca">
+    <div class="container cabecalho-interno">
+      <div class="identidade-marca">
+        <h1 class="titulo-marca">
+          <img class="logo-marca" src="../assets/logo-1-supermart.png" alt="SuperMart">
+        </h1>
+        <p class="texto-suave">Tudo no lugar, sempre na prateleira.</p>
+      </div>
+
+      <div class="selo-cabecalho">
+        <span class="ponto-amarelo"></span>Gerenciamento de Estoque
+      </div>
+    </div>
+  </header>
+
+  <main class="container grade-pagina">
+    <section class="grade-kpi" aria-label="Indicadores de estoque">
+      <article class="cartao kpi-unidades">
+        <span class="rotulo-superior">Unidades em Estoque</span>
+        <p class="valor-kpi" id="kpi-total-unidades">0</p>
+        <p class="texto-suave" id="kpi-texto-unidades">Soma total de unidades disponíveis</p>
+      </article>
+
+      <article class="cartao kpi-ruptura" id="kpi-cartao-ruptura">
+        <span class="rotulo-superior">Itens em Ruptura</span>
+        <p class="valor-kpi" id="kpi-total-ruptura">0</p>
+        <p class="texto-suave" id="kpi-texto-ruptura">Produtos com estoque zerado</p>
+      </article>
+    </section>
+
+    <section class="cartao" aria-labelledby="titulo-formulario">
+      <div class="cabecalho-secao">
+        <h2 class="titulo-secao" id="titulo-formulario">Cadastrar Novo Produto</h2>
+        <p class="texto-suave">Preencha os 3 campos para incluir um item no estoque.</p>
+      </div>
+
+      <form class="formulario-produto" id="formulario-produto" novalidate>
+        <div class="grupo-campo campo-nome">
+          <label for="campo-nome">Nome do Produto</label>
+          <input class="campo" id="campo-nome" type="text" placeholder="Ex.: Café Torrado 500 g" maxlength="80" required>
+        </div>
+
+        <div class="grupo-campo">
+          <label for="campo-quantidade">Quantidade</label>
+          <input class="campo" id="campo-quantidade" type="number" min="0" step="1" placeholder="0" required>
+        </div>
+
+        <div class="grupo-campo">
+          <label for="campo-preco">Preço (R$)</label>
+          <input class="campo" id="campo-preco" type="number" min="0.01" step="0.01" placeholder="0.00" required>
+        </div>
+
+        <button class="botao botao-vermelho botao-enviar" type="submit">+ Adicionar Produto</button>
+      </form>
+
+      <div class="aviso" id="caixa-aviso" role="status" aria-live="polite">
+        <span id="texto-aviso"></span>
+        <button class="botao-icone" id="botao-fechar-aviso" type="button" aria-label="Fechar aviso">✕</button>
+      </div>
+    </section>
+
+    <section class="cartao" aria-labelledby="titulo-estoque">
+      <div class="cabecalho-secao">
+        <h2 class="titulo-secao" id="titulo-estoque">Estoque Atual</h2>
+        <p class="texto-suave" id="resumo-tabela">Exibindo todos os itens cadastrados.</p>
+      </div>
+
+      <div class="barra-ferramentas">
+        <div class="grupo-campo">
+          <label for="campo-busca">Buscar por nome</label>
+          <div class="caixa-busca">
+            <input class="campo campo-busca" id="campo-busca" type="text" placeholder="Digite o nome do produto…">
+            <button class="botao-icone botao-limpar" id="botao-limpar-busca" type="button" aria-label="Limpar busca">✕</button>
+          </div>
+        </div>
+
+        <div class="grupo-campo">
+          <span class="rotulo-campo">Filtrar por status</span>
+          <div class="grupo-filtros" id="grupo-filtros" role="group" aria-label="Filtros de status">
+            <button class="botao botao-contorno ativo" id="filtro-todos" data-filtro="todos" type="button">
+              Todos <span class="contador" id="contagem-todos">0</span>
+            </button>
+            <button class="botao botao-contorno" id="filtro-em_estoque" data-filtro="em_estoque" type="button">
+              Em Estoque <span class="contador" id="contagem-em-estoque">0</span>
+            </button>
+            <button class="botao botao-contorno" id="filtro-ruptura" data-filtro="ruptura" type="button">
+              Em Ruptura <span class="contador" id="contagem-ruptura">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabela-container" id="container-tabela">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Quantidade</th>
+              <th>Preço Unitário</th>
+              <th>Status</th>
+              <th class="texto-direita">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="corpo-tabela"></tbody>
+        </table>
+      </div>
+
+      <div class="estado-vazio" id="estado-vazio" hidden>
+        <h3 id="titulo-vazio">Nenhum produto encontrado</h3>
+        <p class="texto-suave" id="descricao-vazio">Nenhum item corresponde aos critérios selecionados.</p>
+        <button class="botao botao-azul" id="botao-vazio" type="button">Limpar busca e filtros</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
